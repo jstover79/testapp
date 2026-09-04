@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Focus List is a simple, friendly daily task manager." />
+    <title>Focus List — Make today count</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Manrope:wght@700;800&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Focus List home">
+          <span class="brand-mark" aria-hidden="true"><span></span></span>
+          <span>Focus List</span>
+        </a>
+        <p class="date" id="current-date"></p>
+      </header>
+
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">YOUR DAILY SPACE</p>
+          <h1 id="page-title">Make today count<span>.</span></h1>
+          <p class="intro">A calm place for the things that matter. Add a task, find your focus, and enjoy the momentum.</p>
+        </div>
+        <div class="progress-card" aria-label="Daily progress">
+          <div class="progress-ring" id="progress-ring"><strong id="progress-percent">0%</strong></div>
+          <div><span>DAILY PROGRESS</span><strong id="progress-copy">A fresh start</strong></div>
+        </div>
+      </section>
+
+      <section class="workspace" aria-label="Task manager">
+        <form class="task-form" id="task-form">
+          <label class="sr-only" for="task-input">Add a new task</label>
+          <span class="plus" aria-hidden="true">+</span>
+          <input id="task-input" maxlength="100" autocomplete="off" placeholder="What would make today great?" required />
+          <button type="submit">Add task <span aria-hidden="true">→</span></button>
+        </form>
+
+        <div class="toolbar">
+          <div class="filters" role="group" aria-label="Filter tasks">
+            <button class="filter active" data-filter="all" type="button">All <span id="all-count">0</span></button>
+            <button class="filter" data-filter="active" type="button">In progress</button>
+            <button class="filter" data-filter="completed" type="button">Completed</button>
+          </div>
+          <button class="clear-button" id="clear-completed" type="button">Clear completed</button>
+        </div>
+
+        <div class="task-list" id="task-list" aria-live="polite"></div>
+      </section>
+
+      <footer><span>Small steps, meaningful days.</span><span>Saved in your browser</span></footer>
+    </main>
+
+    <template id="task-template">
+      <article class="task-item">
+        <button class="check" type="button" aria-label="Mark task complete"><span>✓</span></button>
+        <div class="task-content"><p></p><small></small></div>
+        <button class="delete" type="button" aria-label="Delete task">×</button>
+      </article>
+    </template>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

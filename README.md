@@ -27,40 +27,22 @@ The lattice has periodic boundary conditions. The engine draws exponential holdi
 
 For interactive use, `32 x 32` through `256 x 256` is a good starting range. Grids around `1000 x 1000` or larger require substantially more memory bandwidth to redraw and may feel slow, depending on the machine.
 
-## Build on Windows with portable MinGW/GCC
+## Build on Windows
 
-Install [Git](https://git-scm.com/), [CMake](https://cmake.org/download/), and a portable MinGW distribution. Make sure the MinGW `bin` directory containing `g++.exe` and `mingw32-make.exe` is on `PATH`, then open PowerShell in the repository:
+Install [Git](https://git-scm.com/), [CMake](https://cmake.org/download/), and Visual Studio 2022 with the **Desktop development with C++** workload. Then open PowerShell in the repository:
 
 ```powershell
-cmake -S . -B build -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release
-cmake --build build --parallel
+cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+cmake --build build --config Release
 ```
 
-CMake downloads raylib 5.5 during its first configuration. The executables will be:
+CMake downloads raylib 5.5 during its first configuration. The executable will be:
 
 ```text
-build\harris_lab.exe
-build\harris_tests.exe
+build\Release\harris_lab.exe
 ```
 
 Double-click `harris_lab.exe` or run it from PowerShell.
-
-If CMake previously configured `build` with a different compiler or generator, delete that directory before running the commands above. A CMake build directory cannot switch generators in place.
-
-### Visual Studio alternative
-
-Install Visual Studio 2022 with the **Desktop development with C++** workload, then run:
-
-```powershell
-cmake -S . -B build-vs -G "Visual Studio 17 2022" -A x64
-cmake --build build-vs --config Release
-```
-
-The Visual Studio executable is `build-vs\Release\harris_lab.exe`.
-
-### About raylib audio
-
-Harris Lab does not use sound. Its CMake configuration uses raylib's supported custom-build options to disable `SUPPORT_MODULE_RAUDIO`, so raylib's `raudio.c` and bundled audio/module loaders (including `jar_mod.h`) are not compiled. This avoids pulling unused audio code into the application and prevents GCC diagnostics originating from that third-party module loader. Warning levels remain enabled independently for every Harris Lab target.
 
 ## Build on Linux or macOS
 

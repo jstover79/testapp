@@ -36,15 +36,12 @@ if(HARRIS_BUILD_GUI)
   )
   FetchContent_MakeAvailable(raylib)
 
-  # raudio.c is optional in raylib's customized build. Fail at configure time
-  # rather than silently regressing to the audio-enabled source set.
-  get_target_property(raylib_sources raylib SOURCES)
-  foreach(raylib_source IN LISTS raylib_sources)
-    if(raylib_source MATCHES "(^|[/\\\\])raudio\\.c$")
-      message(FATAL_ERROR "raylib audio was requested even though Harris Lab disables it")
-    endif()
-  endforeach()
-  message(STATUS "Harris Lab: verified raylib source list excludes raudio.c")
+  # raylib 5.5 always lists raudio.c as a source. With this option disabled,
+  # that translation unit excludes its implementation at preprocessing time.
+  if(SUPPORT_MODULE_RAUDIO)
+    message(FATAL_ERROR "Harris Lab requires raylib audio support to remain disabled")
+  endif()
+  message(STATUS "Harris Lab: raylib SUPPORT_MODULE_RAUDIO is OFF")
 
   # glibc marks fgets() warn_unused_result, and raylib 5.5 intentionally
   # discards one such result in rcore.c. Keep this exception on vendor C only.

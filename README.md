@@ -60,7 +60,7 @@ The Visual Studio executable is `build-vs\Release\harris_lab.exe`.
 
 ### About raylib audio
 
-Harris Lab does not use sound. Its CMake configuration uses raylib's supported custom-build options to disable `SUPPORT_MODULE_RAUDIO`, so raylib's `raudio.c` and bundled audio/module loaders (including `miniaudio.h` and `jar_mod.h`) are not compiled. CMake also checks raylib's source list and stops configuration if `raudio.c` is unexpectedly present.
+Harris Lab does not use sound. Its CMake configuration uses raylib's supported custom-build options to disable `SUPPORT_MODULE_RAUDIO`. Raylib 5.5 still lists and compiles the `raudio.c` translation unit unconditionally, but the implementation inside that file is guarded by `#if defined(SUPPORT_MODULE_RAUDIO)`. With the option off, the compiler does not process the bundled audio backends and loaders in `miniaudio.h` and `jar_mod.h`. CMake verifies the option itself rather than incorrectly treating the presence of `raudio.c` in raylib's source list as evidence that audio is enabled.
 
 Raylib 5.5's core still contains an ignored `fgets()` result in `rcore.c`. On GCC systems where the C library annotates that function with `warn_unused_result`, it produces `-Wunused-result`. Because the core windowing module is required, the build suppresses that diagnostic only while compiling raylib's vendor C target. It is not suppressed for Harris Lab code. Warning levels remain enabled independently for `harris_process`, `harris_tests`, and `harris_lab`.
 

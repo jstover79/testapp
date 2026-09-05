@@ -1,0 +1,14 @@
+{
+  "name": "focus-list",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A small, dependency-free task manager for testing web development workflows.",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
